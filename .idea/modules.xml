@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/NightOut.iml" filepath="$PROJECT_DIR$/.idea/NightOut.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../appcompat_v7/appcompat_v7.iml" filepath="$PROJECT_DIR$/../appcompat_v7/appcompat_v7.iml" />
+      <module fileurl="file://$USER_HOME$/Documents/Development/adt-bundle-windows-x86_64-20140702/sdk/facebook-android-sdk-3.23.0/facebook/facebook.iml" filepath="$USER_HOME$/Documents/Development/adt-bundle-windows-x86_64-20140702/sdk/facebook-android-sdk-3.23.0/facebook/facebook.iml" />
+      <module fileurl="file://$USER_HOME$/Documents/Development/adt-bundle-windows-x86_64-20140702/sdk/extras/google/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" filepath="$USER_HOME$/Documents/Development/adt-bundle-windows-x86_64-20140702/sdk/extras/google/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" />
+    </modules>
+  </component>
+</project>
