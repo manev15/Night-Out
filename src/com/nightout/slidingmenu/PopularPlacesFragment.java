@@ -30,6 +30,8 @@ import com.nightout.ServiceHandler;
 import com.nightout.foursquare.FoursquareVenue;
 
 
+
+
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -148,6 +150,8 @@ public class PopularPlacesFragment extends Fragment {
 	private class fourquare extends AsyncTask<View, Void, String> {
 
 		String temp;
+		private String stats;
+		private String chekins;
 
 		@Override
 		protected void onPreExecute() {
@@ -226,10 +230,17 @@ public class PopularPlacesFragment extends Fragment {
 								latitude = jsonLocation.getString("lng");
 								distance = jsonLocation.getString("distance");
 								
+								
+								stats=tempRow.getString("stats");
+								JSONObject statis = new JSONObject(stats);
+								
+								chekins=statis.getString("checkinsCount");
+								Log.d("IHAAAAAAAAAAAAAAAA", chekins);
+								
 								Log.d("RARARARRARARARARARRARA", distance);
 								double aa1 = Double.parseDouble(langutude);
 								double aa2 = Double.parseDouble(latitude);
-								String ace=name+","+" "+langutude+" "+latitude+" "+distance;
+								String ace=name+","+" "+langutude+" "+latitude+" "+distance+" "+chekins;
 							lokacii.put(name,ace);
 						
 							
@@ -293,6 +304,7 @@ public class PopularPlacesFragment extends Fragment {
 						String fico1=op[1];
 						String kco[]=fico1.split(" ");
 						String carsum=kco[3];
+						String brCheks = kco[4];
 						Log.e("FICO", fico);
 						Log.e("kco-0", kco[1]);
 						Log.e("kco-1", kco[2]);
@@ -306,7 +318,7 @@ public class PopularPlacesFragment extends Fragment {
 						 
 
 					  
-					            Card card = new Card(fico,"Distance:"+carsum+" m");
+					            Card card = new Card(fico,"Distance:"+carsum+" m"+"          Chekins:"+brCheks);
 					            cardArrayAdapter.add(card);
 					  
 					       
