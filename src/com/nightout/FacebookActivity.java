@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +24,7 @@ import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
+
 
 @SuppressWarnings("deprecation")
 public class FacebookActivity extends Activity {
@@ -52,10 +54,26 @@ public class FacebookActivity extends Activity {
 			btnShowAccessTokens = (Button) findViewById(R.id.btn_show_access_tokens);
 			mAsyncRunner = new AsyncFacebookRunner(facebook);
 
+			int a = Singleton.getInstance().br;
+			if(a!=0)
+			{
+				
+				// Making get profile button visible
+				btnFbGetProfile.setVisibility(View.VISIBLE);
+
+				// Making post to wall visible
+				btnPostToWall.setVisibility(View.VISIBLE);
+
+				// Making show access tokens button visible
+				btnShowAccessTokens.setVisibility(View.VISIBLE);
+			}
+			
+			loginToFacebook();
+			
 			/**
 			 * Login button Click event
 			 * */
-			btnFbLogin.setOnClickListener(new View.OnClickListener() {
+/*			btnFbLogin.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -63,7 +81,7 @@ public class FacebookActivity extends Activity {
 					loginToFacebook();
 				}
 			});
-
+*/
 			/**
 			 * Getting facebook Profile info
 			 * */
@@ -94,7 +112,7 @@ public class FacebookActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					showAccessTokens();
+			 	logoutFromFacebook();
 				}
 			});
 
@@ -133,7 +151,7 @@ public class FacebookActivity extends Activity {
 
 			if (!facebook.isSessionValid()) {
 				facebook.authorize(this,
-						new String[] { "email", "publish_actions" },
+						new String[] { "publish_actions","email"},
 						new DialogListener() {
 
 							@Override
@@ -145,6 +163,8 @@ public class FacebookActivity extends Activity {
 							public void onComplete(Bundle values) {
 								// Function to handle complete event
 								// Edit Preferences and update facebook acess_token
+							
+								
 								SharedPreferences.Editor editor = mPrefs.edit();
 								editor.putString("access_token",
 										facebook.getAccessToken());
@@ -205,9 +225,22 @@ public class FacebookActivity extends Activity {
 						// getting name of the user
 						final String name = profile.getString("name");
 						Log.d("aa",name);
+						Intent intent = new Intent(FacebookActivity.this, com.nightout.slidingmenu.MainActivity.class);
+						intent.putExtra("name", name);
+						Singleton.getInstance().br++;
+						Singleton.getInstance().ime=name;
+						
+						startActivity(intent);
+					//	finish();
+					
+					
+						
 						// getting email of the user
 						final String email = profile.getString("email");
+						
+						Log.e("ACEEEEE", email);
 						Toast.makeText(getApplicationContext(), "Name: " + name + "\nEmail: " + email, Toast.LENGTH_LONG).show();
+						
 						runOnUiThread(new Runnable() {
 
 							@Override
@@ -242,6 +275,7 @@ public class FacebookActivity extends Activity {
 				public void onFacebookError(FacebookError e, Object state) {
 				}
 			});
+		
 		}
 
 		/**
@@ -327,5 +361,9 @@ public class FacebookActivity extends Activity {
 				public void onFacebookError(FacebookError e, Object state) {
 				}
 			});
+		}
+		public void finish() {
+			
+			this.finish();
 		}
 }

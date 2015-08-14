@@ -3,31 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/txtLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Home View"
-        android:textSize="16dp" />
+         <Button
+           android:id="@+id/fblogin"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="17dp"
+           android:text="Login with Facebook" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_home" />
+       <TextView
+           android:id="@+id/textView2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/fblogin"
+           android:layout_centerHorizontal="true"
+           android:text="aa"
+           android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/fblogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="84dp"
-        android:text="Login with Facebook" />
+       <Button
+           android:id="@+id/button1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/textView2"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="42dp"
+           android:text="Post to Facebook Wall" 
+           	android:visibility="gone"
+           />
 
 </RelativeLayout>
