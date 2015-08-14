@@ -340,7 +340,40 @@ public class PopularPlacesFragment extends Fragment {
 					
 					
 				}
+			Card ahbe,ahbe1,ahbe2;
+		
+				int a=0,a1=0;
+				for (int i=0;i<cardArrayAdapter.getCount();i++)
+				{
+					
+					for (int t=0; t < cardArrayAdapter.getCount() - i - 1; t++)
+					{	
+						int op=cardArrayAdapter.getItem(t).getLine2().toString().indexOf("Chekins:");
+						int kucka=cardArrayAdapter.getItem(t).getLine2().toString().length();
+						String kka=cardArrayAdapter.getItem(t).getLine2().toString().substring(op+8, kucka);
+						//a=Integer.parseInt(cardArrayAdapter.getItem(t).getLine2().toString());
+						int op1=cardArrayAdapter.getItem(t+1).getLine2().toString().indexOf("Chekins:");
+						String kka1=cardArrayAdapter.getItem(t+1).getLine2().toString().substring(op1+8, cardArrayAdapter.getItem(t+1).getLine2().toString().length());
+						
+						
+						a=Integer.parseInt(kka);
+						a1=Integer.parseInt(kka1);
+						if(a<a1)
+						{
+						
+						ahbe=cardArrayAdapter.getItem(t);
+						cardArrayAdapter.setPosition(t, cardArrayAdapter.getItem(t+1));
+					//	ahbe1=cardArrayAdapter.getItem(0);
+						cardArrayAdapter.setPosition(t+1,ahbe);
+					//	ahbe2=cardArrayAdapter.getItem(1);
+				 	}
+						
+				 	}
+			 	}
+				
+				
 				 listView.setAdapter(cardArrayAdapter);
+			
 				// set the results to the list
 				// and show them in the xml
 			

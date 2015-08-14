@@ -36,6 +36,11 @@ public class CardArrayAdapter  extends ArrayAdapter<Card> {
         return this.cardList.size();
     }
 
+    public void setPosition(int i,Card object) {
+    	cardList.set(i, object);
+     }
+
+    
     @Override
     public Card getItem(int index) {
         return this.cardList.get(index);

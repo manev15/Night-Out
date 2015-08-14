@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.nightout.Card;
 import com.nightout.CardArrayAdapter;
 import com.nightout.JSonParser;
+import com.nightout.MapActivity;
 import com.nightout.R;
 import com.nightout.ServiceHandler;
 import com.nightout.foursquare.AndroidFoursquare;
@@ -60,7 +61,7 @@ import android.widget.Toast;
 public class FindPlacesFragment extends Fragment {
 
 	 
-
+	private ArrayList<String> lista = new ArrayList<String>();
 	private Geocoder geocoder;
 	private Button find;
 	private TextView lokacija;
@@ -115,11 +116,9 @@ public class FindPlacesFragment extends Fragment {
 			private double lng;
 
 			public void onClick(View v) {
-		    	String add=lokacija.getText().toString();
+		    String add=lokacija.getText().toString();
 		    	
 
-		    	
-		    	      
 		    	try {
 
 		    	List<Address> addresses= geocoder.getFromLocationName(add, 1);
@@ -149,10 +148,16 @@ public class FindPlacesFragment extends Fragment {
 
 	        }    
 		});
+        show.setOnClickListener(new View.OnClickListener() {
 
-		   
-	
-        
+
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),MapActivity.class);
+				intent.putStringArrayListExtra("manev", lista);
+	 			startActivity(intent);
+	        }    
+		});
+ 
         return rootView;
     }
 
@@ -185,9 +190,6 @@ public class FindPlacesFragment extends Fragment {
 			
 			
 			temp = makeCall(povik);
-
-			
-			
 			ServiceHandler sh = new ServiceHandler();
 
 		
@@ -251,13 +253,9 @@ public class FindPlacesFragment extends Fragment {
 								double aa2 = Double.parseDouble(latitude);
 								String ace=name+","+" "+langutude+" "+latitude+" "+distance+" "+chekins;
 							lokacii.put(name,ace);
-						
 							
-								
 							}
-		     
-						
-
+		    
 
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -312,33 +310,19 @@ public class FindPlacesFragment extends Fragment {
 						Log.e("kco-1", kco[2]);
 						Log.e("Car", kco[3]);
 						double aaa1 = Double.parseDouble(kco[1]);
-					double aaa2 = Double.parseDouble(kco[2]);
+						double aaa2 = Double.parseDouble(kco[2]);
 						Log.e("aa1", String.valueOf(aaa1));
-				
+						String selba=fico+"-"+kco[1]+" "+kco[2];
+						
 					if(i==0)
 						{
-						 
-
-					  
-					            Card card = new Card(fico,"Distance:"+carsum+" m"+"          Chekins:"+brCheks);
-					            cardArrayAdapter.add(card);
-					  
-					       
-						 listTitle.add(nex, fico);
-						 nex++;
+							Card card = new Card(fico,"Distance:"+carsum+" m"+"          Chekins:"+brCheks);
+					        cardArrayAdapter.add(card);
+					        lista.add(selba);
+						    listTitle.add(nex, fico);
+						    nex++;
 						}						
 					}
-					
-					
-//					ListAdapter adapter = new SimpleAdapter(getActivity(),lokacii,R.layout.fragment_nearplaces,new String[]
-//					{
-//						
-//						
-//						
-//						
-//					});
-									
-					
 					
 					
 				}
