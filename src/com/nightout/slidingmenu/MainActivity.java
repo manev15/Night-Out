@@ -1,8 +1,12 @@
 package com.nightout.slidingmenu;
 
 import com.nightout.R;
+import com.nightout.Singleton;
 
 import java.util.ArrayList;
+
+
+
 
 import com.nightout.slidingmenu.adapter.NavDrawerListAdapter;
 import com.nightout.slidingmenu.model.NavDrawerItem;
@@ -11,10 +15,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -38,6 +44,7 @@ public class MainActivity extends Activity {
 	// slide menu items
 	private String[] navMenuTitles;
 	private TypedArray navMenuIcons;
+	final Context cont=this;
 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
@@ -48,6 +55,11 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+          Singleton.getInstance().ime = PreferenceManager.getDefaultSharedPreferences(cont).getString("name", Singleton.getInstance().ime);
+          
+   
+        Log.d("aaaaaaaaaa", Singleton.getInstance().ime);
+		
 		mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items

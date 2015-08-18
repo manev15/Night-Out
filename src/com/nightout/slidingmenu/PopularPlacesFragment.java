@@ -100,7 +100,7 @@ public class PopularPlacesFragment extends Fragment {
 			a2 = Double.toString(longitude);
 
 			longtitude = a1 + "," + a2 + "&radius=5000"
-					+ "&categoryId=4bf58dd8d48988d16d941735";
+					+ "&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e5931735,4bf58dd8d48988d137941735,4d4b7105d754a06374d81259";
 			
 
 		} else {

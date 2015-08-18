@@ -1,24 +1,37 @@
 package com.nightout;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 
+
+
+
+
+
+
+
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
+import android.provider.MediaStore.Images.Media;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -223,6 +236,7 @@ public class PhotoActivity extends Activity {
 			dispatchTakeVideoIntent();
 		}
 	};
+	private Button kopce;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -235,6 +249,42 @@ public class PhotoActivity extends Activity {
 		mVideoView = (VideoView) findViewById(R.id.videoView1);
 		mImageBitmap = null;
 		mVideoUri = null;
+		kopce=(Button)findViewById(R.id.button1);
+		
+		
+		kopce.setOnClickListener(new View.OnClickListener() {
+
+
+			public void onClick(View v) {
+				
+				View content = findViewById(R.id.imageView1);
+                content.setDrawingCacheEnabled(true);
+
+                    Bitmap bitmap = content.getDrawingCache();
+                    File root = Environment.getExternalStorageDirectory();
+                    File cachePath = new File(root.getAbsolutePath() + "/DCIM/Camera/image.jpg");
+                    try {
+                        cachePath.createNewFile();
+                        FileOutputStream ostream = new FileOutputStream(cachePath);
+                        bitmap.compress(CompressFormat.JPEG, 100, ostream);
+                        ostream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("image/*");
+                    share.putExtra(Intent.EXTRA_TEXT,"Here i am :)");
+                    share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(cachePath));
+                    startActivity(Intent.createChooser(share,"Share via"));
+
+            
+			
+			
+			
+			}    
+		});
 
 		Button picBtn = (Button) findViewById(R.id.btnIntend);
 		setBtnListenerOrDisable( 

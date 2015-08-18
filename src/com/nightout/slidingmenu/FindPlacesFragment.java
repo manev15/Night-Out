@@ -39,6 +39,7 @@ import com.nightout.foursquare.FoursquareVenue;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -49,6 +50,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -110,6 +112,10 @@ public class FindPlacesFragment extends Fragment {
         show = (Button)rootView.findViewById(R.id.button2);
         geocoder = new Geocoder(getActivity());
         listView = (ListView) rootView.findViewById(R.id.card_listView);
+        
+      
+        
+        
         find.setOnClickListener(new View.OnClickListener() {
 
 		    private double lat;
@@ -117,7 +123,9 @@ public class FindPlacesFragment extends Fragment {
 
 			public void onClick(View v) {
 		    String add=lokacija.getText().toString();
-		    	
+		//ja krie tastaturata
+		    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+	        imm.hideSoftInputFromWindow(lokacija.getWindowToken(), 0);
 
 		    	try {
 
@@ -134,7 +142,7 @@ public class FindPlacesFragment extends Fragment {
 		    	 
 		    
 		    	 longtitude = a1 + "," + a2 + "&radius=5000"
-							+ "&categoryId=4bf58dd8d48988d16d941735";
+							+ "&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e5931735,4bf58dd8d48988d137941735,4d4b7105d754a06374d81259";
 			        
 		       	 new fourquare().execute();
 		       	 show.setVisibility(Button.VISIBLE);
@@ -251,7 +259,7 @@ public class FindPlacesFragment extends Fragment {
 								Log.d("RARARARRARARARARARRARA", distance);
 								double aa1 = Double.parseDouble(langutude);
 								double aa2 = Double.parseDouble(latitude);
-								String ace=name+","+" "+langutude+" "+latitude+" "+distance+" "+chekins;
+								String ace=name+";"+" "+langutude+" "+latitude+" "+distance+" "+chekins;
 							lokacii.put(name,ace);
 							
 							}
@@ -299,11 +307,13 @@ public class FindPlacesFragment extends Fragment {
 					{ 
 					
 						Log.e("AAAAAAAAAAAAAA", lokacii.get(p));
-						String op[]=lokacii.get(p).split(",");
+						String op[]=lokacii.get(p).split(";");
 						fico = op[0];
+					
 						String fico1=op[1];
 						String kco[]=fico1.split(" ");
 						String carsum=kco[3];
+						Log.e("svetlanaaaa", carsum);
 						String brCheks = kco[4];
 						Log.e("FICO", fico);
 						Log.e("kco-0", kco[1]);
@@ -312,15 +322,19 @@ public class FindPlacesFragment extends Fragment {
 						double aaa1 = Double.parseDouble(kco[1]);
 						double aaa2 = Double.parseDouble(kco[2]);
 						Log.e("aa1", String.valueOf(aaa1));
-						String selba=fico+"-"+kco[1]+" "+kco[2];
+						
+						String selba=fico+";"+kco[1]+" "+kco[2];
 						
 					if(i==0)
 						{
+						
+						
 							Card card = new Card(fico,"Distance:"+carsum+" m"+"          Chekins:"+brCheks);
 					        cardArrayAdapter.add(card);
 					        lista.add(selba);
 						    listTitle.add(nex, fico);
 						    nex++;
+						
 						}						
 					}
 					

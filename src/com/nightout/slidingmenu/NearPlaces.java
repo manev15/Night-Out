@@ -23,6 +23,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.nightout.JSonParser;
 import com.nightout.R;
 import com.nightout.ServiceHandler;
+import com.nightout.Singleton;
 import com.nightout.foursquare.FoursquareVenue;
+
 
 
 public class NearPlaces extends ListFragment {
@@ -69,6 +73,7 @@ public class NearPlaces extends ListFragment {
 	HashMap<String, String> lokacii;
 	private Spinner sp;
 	private String kat="",povik="";
+	 private SwipeRefreshLayout mSwipeRefreshLayout;
 
 	// private double latitute=41.3182956;
 
@@ -87,33 +92,18 @@ public class NearPlaces extends ListFragment {
 		
 		
 		gps = new GPSTracker(getActivity());
-		//String ku=Singleton.getInstance().category;
-//		if(ku.length()!=0)
-//		{
-//		kat=ku;	
-//			
-//		}
-//		
+	
 		// check if GPS enabled
 		if (gps.canGetLocation()) {
 
 			double latitude = gps.getLatitude();
 			double longitude = gps.getLongitude();
-			// String a1=Double.toString(latitude);
-			// String a2=Double.toString(longitude);
-
 			a1 = Double.toString(latitude);
 			a2 = Double.toString(longitude);
 
 			longtitude = a1 + "," + a2 + "&radius=5000"
-					+ "&categoryId=4bf58dd8d48988d16d941735";
+					+ "&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e5931735,4bf58dd8d48988d137941735,4d4b7105d754a06374d81259";
 			
-			// \n is for new line
-
-//			Toast.makeText(
-//					getActivity(),
-//					"Your Location is - \nLat: " + latitude + "\nLong: "
-//							+ longitude, Toast.LENGTH_LONG).show();
 		} else {
 			// can't get location
 			// GPS or Network is not enabled
@@ -145,13 +135,43 @@ public class NearPlaces extends ListFragment {
 			sp.setAdapter(dataAdapter);
 		 */
 		
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
+//		int kkk=Singleton.getInstance().br1;
+//		if(kkk==0)
+//		{
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		//}
+		  mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeContainer);
+	    	mSwipeRefreshLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue,R.color.orange);
+	        mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+
+	            @Override
+	            public void onRefresh() {
+	           	 Ace();
+	            }
+	        });
+
+		
 		new fourquare().execute();
 		return rootView;
 	}
 
+	public void Ace() 
+	{
+	  mMap.clear();
+	  mSwipeRefreshLayout.setRefreshing(false);
+	  new fourquare().execute();
+	}
+	
+	@Override
+	public void onDestroyView() {
+	    super.onDestroyView();
+	    MapFragment f = (MapFragment) getFragmentManager()
+	                                         .findFragmentById(R.id.map);
+	    if (f != null) 
+	        getFragmentManager().beginTransaction().remove(f).commit();
+	}
+	
 	private class fourquare extends AsyncTask<View, Void, String> {
 
 		String temp;
@@ -170,30 +190,7 @@ public class NearPlaces extends ListFragment {
 		@Override
 		protected String doInBackground(View... urls) {
 			// make Call to the url
-		//	String ku=Singleton.getInstance().category;
-/*
-			if(ku.length()!=0)
-			{	kat=ku;
-				longtitude = a1 + "," + a2 + "&radius=5000"
-						+ "&categoryId="+kat;
-				povik ="https://api.foursquare.com/v2/venues/search?client_id="
-						+ CLIENT_ID
-						+ "&client_secret="
-						+ CLIENT_SECRET
-						+ "&v=20130815&ll=" + longtitude;
-	    	}
-			else
-			{
-				
-				povik ="https://api.foursquare.com/v2/venues/search?client_id="
-						+ CLIENT_ID
-						+ "&client_secret="
-						+ CLIENT_SECRET
-						+ "&v=20130815&ll=" + longtitude;
-				
-				
-			}
-			 */
+
 			povik ="https://api.foursquare.com/v2/venues/search?client_id="
 					+ CLIENT_ID
 					+ "&client_secret="

@@ -9,10 +9,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+
+
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +47,7 @@ public class FacebookActivity extends Activity {
 		Button btnFbGetProfile;
 		Button btnPostToWall;
 		Button btnShowAccessTokens;
+		final Context cont=this;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -225,11 +231,14 @@ public class FacebookActivity extends Activity {
 						// getting name of the user
 						final String name = profile.getString("name");
 						Log.d("aa",name);
+						
+						
 						Intent intent = new Intent(FacebookActivity.this, com.nightout.slidingmenu.MainActivity.class);
 						intent.putExtra("name", name);
 						Singleton.getInstance().br++;
 						Singleton.getInstance().ime=name;
-						
+			  	   	    PreferenceManager.getDefaultSharedPreferences(cont).edit().putString("name", Singleton.getInstance().ime).commit();
+						Log.d("Aj da vidimeee", Singleton.getInstance().ime);
 						startActivity(intent);
 					//	finish();
 					
@@ -318,7 +327,6 @@ public class FacebookActivity extends Activity {
 		/**
 		 * Function to Logout user from Facebook
 		 * */
-		@SuppressWarnings("deprecation")
 		public void logoutFromFacebook() {
 			mAsyncRunner.logout(this, new RequestListener() {
 				@Override
@@ -364,6 +372,6 @@ public class FacebookActivity extends Activity {
 		}
 		public void finish() {
 			
-			this.finish();
+		//	this.finish();
 		}
 }

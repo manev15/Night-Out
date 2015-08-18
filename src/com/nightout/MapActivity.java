@@ -50,7 +50,7 @@ public class MapActivity extends FragmentActivity {
 			 for(int i=0;i<value.size();i++)
 			 {
 				 ime=value.get(i);
-				 ace=ime.split("-");
+				 ace=ime.split(";");
 				 ace1=ace[1].split(" ");
 					double aaa1 = Double.parseDouble(ace1[0]);
 					double aaa2 = Double.parseDouble(ace1[1]);

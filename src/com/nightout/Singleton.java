@@ -4,6 +4,7 @@ package com.nightout;
 
 public class Singleton {
 	public int br=0; 
+	public int br1=0; 
 	public String ime="";
 	public String category="";
 	

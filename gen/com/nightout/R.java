@@ -1882,7 +1882,7 @@ containing a value of this type.
         public static final int btn_show_access_tokens=0x7f080062;
         public static final int button=0x7f080035;
         public static final int button1=0x7f080069;
-        public static final int button2=0x7f08008d;
+        public static final int button2=0x7f08008c;
         public static final int buyButton=0x7f080014;
         public static final int buy_now=0x7f080019;
         public static final int buy_with_google=0x7f08001a;
@@ -1991,7 +1991,7 @@ containing a value of this type.
         public static final int tabMode=0x7f080021;
         public static final int terrain=0x7f08000d;
         public static final int test=0x7f080013;
-        public static final int textView1=0x7f08008c;
+        public static final int textView1=0x7f08008d;
         public static final int textView2=0x7f08008f;
         public static final int title=0x7f08004e;
         public static final int top=0x7f080039;

@@ -9,9 +9,13 @@ import com.nightout.foursquare.AndroidFoursquare;
  
 
 
+
+
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +28,7 @@ public class HomeFragment extends Fragment {
 	private TextView user;
 	private Button kopce;
 	private Button fblogin;
+	final Context cont=getActivity();
 	Singleton lol;
 	public HomeFragment(){}
 	public int ace;
@@ -37,6 +42,21 @@ public class HomeFragment extends Fragment {
          user=(TextView)rootView.findViewById(R.id.textView2);
          fblogin=(Button)rootView.findViewById(R.id.fblogin);
          post=(Button)rootView.findViewById(R.id.button1);
+         
+         String ime = Singleton.getInstance().ime;
+         int ace1=ime.length();
+         if(ace1==0)
+         {     
+        	 user.setText("You are not logged in");
+         }
+	    else
+	    {
+	      
+	      user.setText("Logged as: "+ime);
+     	 fblogin.setVisibility(View.GONE);
+     	   post.setVisibility(View.VISIBLE);
+	    }    
+         
       
          fblogin.setOnClickListener(new View.OnClickListener() {
         			
@@ -70,7 +90,7 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onResume() {
 	    super.onResume();
-	    Log.e("kolkoo", "kolko");
+	/*    Log.e("kolkoo", "kolko");
 	    
 	    int io=Singleton.getInstance().br;
 	
@@ -89,7 +109,7 @@ public class HomeFragment extends Fragment {
 	      user.setText("You are not logged in");
 	    }    
 	      
-	      
+	      */
 	}
 } 
 
