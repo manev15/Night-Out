@@ -8,17 +8,25 @@ import java.util.ArrayList;
 
 
 
+
+
+
+
 import com.nightout.slidingmenu.adapter.NavDrawerListAdapter;
 import com.nightout.slidingmenu.model.NavDrawerItem;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -55,6 +63,28 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		  if(!isOnline())
+	        {
+ 
+	        	
+	        	new AlertDialog.Builder(this)
+	            .setIcon(R.drawable.info1)
+	        	.setTitle("No Internet Connection")
+	            .setMessage("You don't have internet connection.")
+	            .setPositiveButton("OK", new DialogInterface.OnClickListener()
+	            {
+	                @Override
+	                public void onClick(DialogInterface dialog, int which) {
+	                    //code for exit
+	                	   finish();
+	                       System.exit(0);
+	                }
+
+	            })
+	            .show();
+	        }
+		
+		
           Singleton.getInstance().ime = PreferenceManager.getDefaultSharedPreferences(cont).getString("name", Singleton.getInstance().ime);
           
    
@@ -245,5 +275,12 @@ public class MainActivity extends Activity {
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
+	private boolean isOnline() {
+		// TODO Auto-generated method stub
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		return netInfo != null && netInfo.isConnectedOrConnecting();
+	}
+
 
 }

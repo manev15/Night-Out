@@ -2,11 +2,14 @@ package com.nightout.slidingmenu;
 
  
 
+import com.google.android.gms.common.internal.IAccountAccessor;
 import com.nightout.FacebookActivity;
 import com.nightout.R;
 import com.nightout.Singleton;
 import com.nightout.foursquare.AndroidFoursquare;
  
+
+
 
 
 
@@ -21,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class HomeFragment extends Fragment {
@@ -34,6 +38,8 @@ public class HomeFragment extends Fragment {
 	public int ace;
 	private String Item="",ae;
 	private Button post;
+	private ImageButton login;
+	private ImageButton post1;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -42,22 +48,27 @@ public class HomeFragment extends Fragment {
          user=(TextView)rootView.findViewById(R.id.textView2);
          fblogin=(Button)rootView.findViewById(R.id.fblogin);
          post=(Button)rootView.findViewById(R.id.button1);
+         post1=(ImageButton)rootView.findViewById(R.id.imageButton2);
+         login=(ImageButton)rootView.findViewById(R.id.imageButton1);
          
          String ime = Singleton.getInstance().ime;
          int ace1=ime.length();
          if(ace1==0)
          {     
         	 user.setText("You are not logged in");
+        	   login.setVisibility(View.VISIBLE);
+        	   post1.setVisibility(View.GONE);
+        
          }
 	    else
 	    {
 	      
 	      user.setText("Logged as: "+ime);
-     	 fblogin.setVisibility(View.GONE);
-     	   post.setVisibility(View.VISIBLE);
+     	 login.setVisibility(View.GONE);
+     	   post1.setVisibility(View.VISIBLE);
 	    }    
          
-      
+    /*  
          fblogin.setOnClickListener(new View.OnClickListener() {
         			
            			@Override
@@ -70,7 +81,20 @@ public class HomeFragment extends Fragment {
            			
         			}
            		});
-       
+       */
+         
+         login.setOnClickListener(new View.OnClickListener() {
+ 			
+    			@Override
+    			public void onClick(View arg0) {		
+    				
+    				Intent i = new Intent(getActivity(),FacebookActivity.class);
+    				startActivity(i);
+    				
+    			
+ 			}
+    		});
+         
          post.setOnClickListener(new View.OnClickListener() {
  			
     			@Override
